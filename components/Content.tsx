@@ -34,7 +34,7 @@ const Content = () => {
     fetchData();
   }, [date]);
   return (
-    <section className="flex flex-col items-center md:w-4/6 p-6">
+    <section className="flex flex-col items-center md:w-4/6 p-6 mb-4">
       {data ? (
         <>
           <div className=" mb-6">
