@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Content = () => {
   const currentDate = new Date().toISOString().split("T")[0];
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   const [date, setDate] = useState(currentDate);
 
   const handleDateChange = (selectedDate: Date) => {
@@ -18,14 +19,13 @@ const Content = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
+        const res = await axios.get(
           `https://api.nasa.gov/planetary/apod?date=${date}&api_key=${process.env.NEXT_PUBLIC_NASA_API_KEY}`
         );
-        if (!res.ok) {
+        if (!res.data) {
           throw new Error("Failed to fetch data");
         }
-        const resData = await res.json();
-        setData(resData);
+        setData(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -33,7 +33,6 @@ const Content = () => {
 
     fetchData();
   }, [date]);
-
   return (
     <section className="flex flex-col items-center md:w-4/6 p-6">
       {data ? (
