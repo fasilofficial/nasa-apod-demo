@@ -38,11 +38,20 @@ const Content = () => {
       {data ? (
         <>
           <div className=" mb-6">
-            <img
-              src={data.url}
-              className="w-[600px] h-80 rounded-md object-cover object-center"
-              alt={data.title}
-            />
+            {data.url.includes("youtube") ? (
+              <iframe
+                className="w-[600px] h-80 rounded-md object-cover object-center"
+                src={data.url}
+                title="YouTube video player"
+              />
+            ) : (
+              <img
+                src={data.url}
+                className="w-[600px] h-80 rounded-md object-cover object-center"
+                alt={data.title}
+              />
+            )}
+
             {data.copyright && (
               <p className="text-right text-sm italic text-gray-500">
                 &copy; {data.copyright}
